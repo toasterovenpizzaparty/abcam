@@ -1,13 +1,20 @@
+import { useEffect } from "react";
 import { Provider } from "react-redux";
+import { AxiosProvider } from "./providers/axios";
 import store from "./redux/store";
-import logo from "./logo.svg";
+import { ActionTypes } from "./redux/reducers/step-reducer";
 import "./App.css";
 import Router from "./routes";
 
 function App() {
+  useEffect(() => {
+    store.dispatch({ type: ActionTypes.HYDRATE });
+  });
   return (
     <Provider store={store}>
-      <Router />
+      <AxiosProvider>
+        <Router />
+      </AxiosProvider>
     </Provider>
   );
 }

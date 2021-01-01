@@ -6,20 +6,26 @@ import {
   StoreEnhancer,
 } from "redux";
 import thunk from "redux-thunk";
-import { composeWithDevTools } from "redux-devtools-extension";
-
+import { StepReducer, State as StepState } from "./reducers";
 const initialState = {};
 const enhancers: StoreEnhancer[] = [];
 const middleware = [thunk];
 
+export type RootState = {
+  steps: StepState;
+};
+
 const composedEnhancers = compose(
   applyMiddleware(...middleware),
-  composeWithDevTools(...enhancers)
+  compose(...enhancers)
 );
 const combinedReducers = combineReducers({
-  potato: (state = {}, action) => state,
-  tomato: (state = {}, action) => state,
+  steps: StepReducer,
 });
-const store = createStore(combinedReducers, initialState, composedEnhancers);
+
+const getStore = () =>
+  createStore(combinedReducers, initialState, composedEnhancers);
+const store = getStore();
 
 export default store;
+export { getStore };
