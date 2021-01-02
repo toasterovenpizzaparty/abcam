@@ -1,14 +1,24 @@
 import React from "react";
+import styles from "./textfield.module.css";
 
 export const TextField = ({
+  label = "",
   value = "",
+  placeholder = "",
   onTextChange = (text: string) => {},
 }) => {
   return (
-    <input
-      type='text'
-      value='asda'
-      onChange={(event) => onTextChange(event.target.value)}
-    />
+    <label className={styles.textfield}>
+      <span className={styles["textfield__label-text"]}>{label}</span>
+      <div className={styles["textfield__input-wrapper"]}>
+        <input
+          className={styles["textfield__input"]}
+          type='text'
+          placeholder={placeholder}
+          value={value}
+          onChange={(event) => onTextChange(event.target.value)}
+        />
+      </div>
+    </label>
   );
 };

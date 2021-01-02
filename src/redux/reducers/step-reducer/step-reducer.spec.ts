@@ -1,4 +1,4 @@
-import "../../config/enzyme";
+import "../../../config/enzyme";
 import { StepReducer, ActionTypes, saveState } from "./step-reducer";
 
 describe("<Step Reducer />", () => {

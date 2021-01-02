@@ -1,6 +1,6 @@
 export type StepDataType = {
   fields?: Record<string, string>;
-} & Partial<ServerResponse>;
+};
 
 /*
   A simple state that is flexible enough to have various different steps
@@ -10,21 +10,19 @@ export type State = Record<string, StepDataType>;
 
 export type FormFieldPayload = {
   value: string;
-  formFieldKey: string;
+  key: string;
 };
 
 export enum ActionTypes {
-  HYDRATE,
-  SAVE_FORM_FIELD,
-  START_REQUEST,
-  FINISH_REQUEST,
+  HYDRATE = "hydrate",
+  SAVE_FORM_FIELD = "save-form-field",
 }
 
-export type ServerResponse<T = any> = {
+/* export type ServerResponse<T = any> = {
   isLoading?: boolean;
   data?: T;
   error?: T;
-};
+}; */
 
 /* 
   When working with input we use fields to store any values
@@ -33,9 +31,10 @@ export type ServerResponse<T = any> = {
 */
 export type Action = {
   type: ActionTypes;
-  stepKey?: string;
+  id?: string;
   fields?: FormFieldPayload;
-  serverResponse?: ServerResponse;
+  // serverResponse?: ServerResponse;
+  // isDataComplete?: boolean;
 };
 
 const initialState: State = {};
@@ -47,22 +46,10 @@ const initialState: State = {};
 // Defines the Storage key we are using within the localstorage system to store our data.
 const storageKey = "STEP_REDUCER_STORE";
 
-// Our state can be quite chunky, lets make sure we only store data that is usefull.
-// E.g. our fields data that the user has filled in.
-const sanitiseState = (state: State) => {
-  let sanitisedState: State = {};
-  for (let key in state) {
-    sanitisedState[key] = {
-      fields: state[key].fields,
-    };
-  }
-  return sanitisedState;
-};
-
 // Store our state within localStorage.
 export const saveState = (state: State) => {
   try {
-    localStorage.setItem(storageKey, JSON.stringify(sanitiseState(state)));
+    localStorage.setItem(storageKey, JSON.stringify(state));
   } catch (error) {
     // IO Error
   }
@@ -90,7 +77,7 @@ export const StepReducer = (state = initialState, action: Action) => {
       return nextState;
 
     // Clear any old request data and set isLoading to true to signal the API is working
-    case ActionTypes.START_REQUEST:
+    /* case ActionTypes.START_REQUEST:
       if (action.stepKey) {
         nextState = {
           ...state,
@@ -117,23 +104,18 @@ export const StepReducer = (state = initialState, action: Action) => {
           },
         };
       }
-      break;
+      break; */
 
     // Save a field within a step.
     case ActionTypes.SAVE_FORM_FIELD:
-      if (
-        action.fields &&
-        action.stepKey &&
-        action.fields.formFieldKey &&
-        action.fields.value
-      ) {
+      if (action.fields && action.id && action.fields.key) {
         nextState = {
           ...state,
-          [action.stepKey]: {
-            ...state[action.stepKey],
+          [action.id]: {
+            ...state[action.id],
             fields: {
-              ...(state[action.stepKey]?.fields || {}),
-              [action.fields.formFieldKey]: action.fields.value,
+              ...(state[action.id]?.fields || {}),
+              [action.fields.key]: action.fields.value || "",
             },
           },
         };

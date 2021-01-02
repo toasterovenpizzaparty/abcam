@@ -1,11 +1,11 @@
 import React from "react";
-import { shallow, mount } from "enzyme";
-import "../config/enzyme";
+import { mount } from "enzyme";
+import "../../config/enzyme";
 import { Provider } from "react-redux";
-import store from "../redux/store";
+import store from "../../redux/store";
 import { MemoryRouter as Router, Route } from "react-router-dom";
 import { StepPage, getStepComponent, getStepIndex } from "./step";
-import { StepOne, StepTwo } from "./steps";
+import { StepOne, StepTwo } from "../steps";
 
 describe("<StepPage />", () => {
   it("Renders the correct step", () => {

@@ -1,0 +1,32 @@
+.textfield {
+  margin: 1.6rem 0;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+.textfield__label-text {
+  margin-bottom: 1.2rem;
+  text-align: left;
+  font-size: 2rem;
+  font-family: "ITC Lubalin Graph Std", "Mulish", Lubalin Medium, Century Gothic,
+    Arial, sans-serif;
+  color: #717c7d;
+}
+
+.textfield__input-wrapper {
+  padding: 0 1.6rem;
+  transition: border-color 0.15s ease-in-out;
+  border: 1px solid #919d9d;
+}
+
+.textfield__input {
+  color: #333;
+  width: 100%;
+  height: 42px;
+  border: 0;
+}
+
+.textfield:focus {
+  border-color: #0047bb;
+}

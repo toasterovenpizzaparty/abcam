@@ -2,28 +2,15 @@ import React from "react";
 import axios from "axios";
 import { mount, shallow } from "enzyme";
 import { Provider } from "react-redux";
-import { getStore } from "../../redux/store";
-import "../../config/enzyme";
+import { getStore } from "../../../redux/store";
+import "../../../config/enzyme";
 import { Router } from "react-router-dom";
-// import { StepPage } from "../step";
 import { StepOne } from "./step-one";
-import { wrap } from "module";
-import {
-  getFieldSelector,
-  useStepSelector,
-} from "../../redux/selectors/fieldSelector";
-import reactRouterDom from "react-router-dom";
-import { STEPS, FIELDS } from "../../config/form-types";
-import { ActionTypes } from "../../redux/reducers";
+import { STEPS, FIELDS } from "../../../config/form-types";
+import { ActionTypes } from "../../../redux/reducers";
 
 const mockedAxios = axios as jest.Mocked<typeof axios>;
 jest.mock("axios");
-
-// axios.create.mockImplementationOnce(() => {
-//   console.log("hi world");
-//   return {};
-// });
-console.log("mock axios");
 
 describe("<Step One />", () => {
   it("Renders the page", () => {
@@ -62,6 +49,8 @@ describe("<Step One />", () => {
     expect(
       wrapper.find('[data-test-id="rating"]').props().selectedRating
     ).toEqual("3");
+
+    console.log(reduxStore.getState());
 
     expect(reduxStore.getState()).toEqual({
       steps: {

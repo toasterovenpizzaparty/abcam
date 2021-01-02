@@ -1,0 +1,16 @@
+.wrapper {
+  padding: 1.6rem;
+  border: 1px solid #ccc;
+  border-radius: 0 0 2px 2px;
+  margin: 0;
+  text-align: center;
+  background-color: #fff;
+  position: relative;
+  box-sizing: border-box;
+}
+
+.navigation {
+  margin: 1.6rem 0;
+  display: flex;
+  justify-content: space-between;
+}

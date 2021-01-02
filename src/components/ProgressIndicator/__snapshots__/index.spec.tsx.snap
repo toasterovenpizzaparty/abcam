@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ProgressIndicator /> Renders the progress indicator 1`] = `ShallowWrapper {}`;

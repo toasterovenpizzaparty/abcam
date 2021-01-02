@@ -1,2 +1,2 @@
 export * from "./home";
-export * from "./step";
+export * from "./step/step";

@@ -1,0 +1,79 @@
+.imagefield {
+  margin: 1.6rem 0;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.imagefield__input + .imagefield {
+  font-size: 1.25em;
+  font-weight: 700;
+  color: white;
+  background-color: black;
+  display: inline-block;
+}
+
+.imagefield__input:focus + .imagefield,
+.imagefield__input + .imagefield:hover {
+  background-color: red;
+}
+
+.imagefield__label-text {
+  margin-bottom: 1.2rem;
+  text-align: left;
+  font-size: 2rem;
+  font-family: "ITC Lubalin Graph Std", "Mulish", Lubalin Medium, Century Gothic,
+    Arial, sans-serif;
+  color: #717c7d;
+}
+
+.imagefield__input + .imagefield {
+  cursor: pointer; /* "hand" cursor */
+}
+
+.imagefield__input:focus + imagefield {
+  outline: 1px dotted #000;
+  outline: -webkit-focus-ring-color auto 5px;
+}
+
+.imagefield__input-wrapper {
+  padding: 1.6rem;
+  transition: border-color 0.15s ease-in-out;
+  border: 1px solid #919d9d;
+}
+
+.imagefield__input {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+
+.imagefield:focus {
+  border-color: #0047bb;
+}
+
+.imagepreview {
+  padding: 1.6rem 0;
+  pointer-events: none;
+  flex-direction: column;
+  display: flex;
+  max-width: 200px;
+}
+
+.imagepreview__title {
+  margin-bottom: 1.2rem;
+  text-align: left;
+  font-size: 2rem;
+  font-family: "ITC Lubalin Graph Std", "Mulish", Lubalin Medium, Century Gothic,
+    Arial, sans-serif;
+  color: #717c7d;
+}
+
+.imagepreview__image {
+  margin: 1.6rem 0;
+  width: 100%;
+}

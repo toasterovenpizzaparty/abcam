@@ -6,13 +6,14 @@ import {
   StoreEnhancer,
 } from "redux";
 import thunk from "redux-thunk";
-import { StepReducer, State as StepState } from "./reducers";
+import { StepReducer, StepState, APIReducer, APIState } from "./reducers";
 const initialState = {};
 const enhancers: StoreEnhancer[] = [];
 const middleware = [thunk];
 
 export type RootState = {
   steps: StepState;
+  api: APIState;
 };
 
 const composedEnhancers = compose(
@@ -21,6 +22,7 @@ const composedEnhancers = compose(
 );
 const combinedReducers = combineReducers({
   steps: StepReducer,
+  api: APIReducer,
 });
 
 const getStore = () =>

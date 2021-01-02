@@ -1,3 +1,5 @@
-export type StepPropsType = {
-  testID?: string;
+export type StepPropTypes = {
+  id?: string;
+  isError?: boolean;
+  errorMessage?: string;
 };
