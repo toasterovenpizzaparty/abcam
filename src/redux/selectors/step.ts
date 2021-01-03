@@ -1,6 +1,6 @@
-import { useSelector } from "react-redux";
-import { RootState } from "../store";
-import { StepDataType } from "../reducers/step-reducer/step-reducer";
+import { useSharedState } from "../../providers/shared-state";
 
-export const useStepSelector = (step: string) =>
-  useSelector<RootState, StepDataType>((state) => state?.steps?.[step]);
+export const useStepSelector = (step: string) => {
+  const state = useSharedState();
+  return state?.steps?.[step];
+};

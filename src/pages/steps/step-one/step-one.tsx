@@ -1,5 +1,4 @@
 import React from "react";
-// import { Rating, TextField } from "../../../components";
 import Rating from "../../../components/Form/Rating";
 import TextField from "../../../components/Form/TextField";
 import { FIELDS } from "../../../config/form-types";

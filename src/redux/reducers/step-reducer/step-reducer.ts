@@ -18,6 +18,10 @@ export enum ActionTypes {
   SAVE_FORM_FIELD = "save-form-field",
 }
 
+export type ActionWithTypes = {
+  type: ActionTypes;
+};
+
 /* export type ServerResponse<T = any> = {
   isLoading?: boolean;
   data?: T;
@@ -30,7 +34,7 @@ export enum ActionTypes {
   Any Action should have a stepkey as data is tied to the current step.
 */
 export type Action = {
-  type: ActionTypes;
+  type: string;
   id?: string;
   fields?: FormFieldPayload;
   // serverResponse?: ServerResponse;
@@ -75,36 +79,6 @@ export const StepReducer = (state = initialState, action: Action) => {
         nextState = hydratedState;
       }
       return nextState;
-
-    // Clear any old request data and set isLoading to true to signal the API is working
-    /* case ActionTypes.START_REQUEST:
-      if (action.stepKey) {
-        nextState = {
-          ...state,
-          [action.stepKey]: {
-            ...state[action.stepKey],
-            isLoading: true,
-            data: null,
-            error: null,
-          },
-        };
-      }
-      break;
-
-    // Clear our isLoading flag show any data/errors from the API
-    case ActionTypes.FINISH_REQUEST:
-      if (action.stepKey) {
-        nextState = {
-          ...state,
-          [action.stepKey]: {
-            ...state[action.stepKey],
-            isLoading: false,
-            data: action.serverResponse?.data,
-            error: action.serverResponse?.error,
-          },
-        };
-      }
-      break; */
 
     // Save a field within a step.
     case ActionTypes.SAVE_FORM_FIELD:

@@ -1,7 +1,7 @@
 import React, { useCallback, Suspense } from "react";
-import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { useStepSelector, apiSelector } from "../../redux/selectors";
+import { useSharedState } from "../../providers/shared-state";
+import { useStepSelector } from "../../redux/selectors/step";
 import {
   useCreateReviewAction,
   useUpdateReviewAction,
@@ -28,7 +28,7 @@ export type StepRouteParamsType = {
 };
 
 // Create a simple map to connect our step index to a component
-const StepComponentMap: Readonly<
+export const StepComponentMap: Readonly<
   Record<number, () => React.FC<StepPropTypes>>
 > = {
   0: () => StepOne,
@@ -53,9 +53,10 @@ export const getStepIndex = (stepIndex: string | undefined) =>
 const getField = (state: StepDataType, field: string) =>
   (state?.fields && state?.fields[field]) || "";
 
-export const getNextPageNumber = (index: number) =>
+export const getNextPageIndex = (index: number) =>
   Math.min(numOfSteps, index + 1);
-export const getPreviousPageNumber = (index: number) => Math.max(0, index - 1);
+
+export const getPreviousPageIndex = (index: number) => Math.max(0, index - 1);
 
 export const getFields = (fields: string[], stepState: StepDataType) => {
   const mappedFields = fields.map((key) => {
@@ -65,7 +66,6 @@ export const getFields = (fields: string[], stepState: StepDataType) => {
     };
   });
   if (mappedFields.length) {
-    console.log(mappedFields);
     return mappedFields.reduce(
       (acc, field) => ({
         ...acc,
@@ -78,30 +78,42 @@ export const getFields = (fields: string[], stepState: StepDataType) => {
   }
 };
 
+const getButtonDisabled = (stepState: StepDataType, componentIndex: number) => {
+  switch (componentIndex) {
+    case 0:
+      return (
+        [FIELDS.TITLE, FIELDS.RATING].filter(
+          (field) => !getField(stepState, field)
+        ).length > 0
+      );
+    case 2:
+      return (
+        [FIELDS.IMAGE].filter((field) => !getField(stepState, field)).length > 0
+      );
+    default:
+      return false;
+  }
+};
+
 // Return the corresponding component for the current step.
 export const StepPage: React.FC = () => {
   const history = useHistory();
   const params = useParams<StepRouteParamsType>();
   const updateReview = useUpdateReviewAction();
   const createReview = useCreateReviewAction();
-  const api = useSelector(apiSelector);
+  const api = useSharedState().api;
   const stepState = useStepSelector(params?.id || "step-one");
   const index = getStepIndex(params?.step);
   const StepComponent = getStepComponent(index)();
 
-  const isButtonDisabled =
-    api.isLoading ||
-    (!index &&
-      [FIELDS.TITLE, FIELDS.RATING].filter(
-        (field) => !getField(stepState, field)
-      ).length > 0);
+  const isButtonDisabled = api.isLoading || getButtonDisabled(stepState, index);
   const isPreviousButtonVisible = index - 1 > -1;
   const isNextButtonVisible = index + 1 < numOfSteps;
 
   const navigateToPage = useCallback(
-    async (index) => {
-      const nextPageNumber = index + 1;
+    async (nextPageIndex) => {
       try {
+        let id = params?.id;
         if (!index) {
           const response = await createReview(
             getField(stepState, FIELDS.TITLE),
@@ -110,6 +122,7 @@ export const StepPage: React.FC = () => {
           if (!response || !response?.data?.id) {
             throw new Error("No ID was returned from the API");
           }
+          id = response?.data.id;
         } else {
           // Update a review and navigate
           const isSuccess = await updateReview(
@@ -119,21 +132,21 @@ export const StepPage: React.FC = () => {
             throw new Error("Could not update the review.");
           }
         }
-        history.push(`/step/${nextPageNumber}/id/${params?.id}`);
+        history.push(`/step/${nextPageIndex + 1}/id/${id}`);
       } catch (error) {
         console.log(error);
       }
     },
-    [stepState, createReview, history, params?.id, updateReview]
+    [stepState, createReview, history, params?.id, updateReview, index]
   );
 
   const onPressNext = () =>
-    getNextPageNumber(index) !== index &&
-    navigateToPage(getNextPageNumber(index));
+    getNextPageIndex(index) !== index &&
+    navigateToPage(getNextPageIndex(index));
 
   const onPressPrevious = () =>
-    getPreviousPageNumber(index) !== index &&
-    navigateToPage(getPreviousPageNumber(index));
+    getPreviousPageIndex(index) !== index &&
+    navigateToPage(getPreviousPageIndex(index));
 
   return (
     <>
@@ -149,6 +162,7 @@ export const StepPage: React.FC = () => {
       >
         <Suspense fallback={<div>Loading...</div>}>
           <ErrorMessage
+            data-test-id='step-error-message'
             isVisible={!!api?.error}
             messages={[
               "Something went wrong while trying to save your review.",
@@ -163,12 +177,14 @@ export const StepPage: React.FC = () => {
       </section>
       <nav className={styles.navigation}>
         <Button
+          data-test-id='previous-button'
           isDisabled={isButtonDisabled || !isPreviousButtonVisible}
           onClick={onPressPrevious}
         >
           Previous
         </Button>
         <Button
+          data-test-id='next-button'
           isDisabled={isButtonDisabled || !isNextButtonVisible}
           onClick={onPressNext}
         >

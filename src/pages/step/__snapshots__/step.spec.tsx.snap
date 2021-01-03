@@ -2,4 +2,8 @@
 
 exports[`<StepPage /> Renders a fallback if the step does not exist 1`] = `ReactWrapper {}`;
 
+exports[`<StepPage /> Renders step 3 1`] = `ReactWrapper {}`;
+
+exports[`<StepPage /> Renders step 4 1`] = `ReactWrapper {}`;
+
 exports[`<StepPage /> Renders the correct step 1`] = `ReactWrapper {}`;

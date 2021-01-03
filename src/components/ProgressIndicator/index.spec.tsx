@@ -1,3 +1,4 @@
+import React from "react";
 import { shallow } from "enzyme";
 import "../../config/enzyme";
 import { ProgressIndicator, getFloat, getPercentage } from "./index";

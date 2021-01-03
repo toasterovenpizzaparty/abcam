@@ -33,9 +33,9 @@ describe("<Step Reducer />", () => {
     expect(
       StepReducer(undefined, {
         type: ActionTypes.SAVE_FORM_FIELD,
-        stepKey: "test-step",
+        id: "test-step",
         fields: {
-          formFieldKey: "test-field",
+          key: "test-field",
           value: "bar",
         },
       })
@@ -44,9 +44,9 @@ describe("<Step Reducer />", () => {
     expect(
       StepReducer(resultState, {
         type: ActionTypes.SAVE_FORM_FIELD,
-        stepKey: "test-step",
+        id: "test-step",
         fields: {
-          formFieldKey: "test-field-2",
+          key: "test-field-2",
           value: "foo",
         },
       })
@@ -64,9 +64,8 @@ describe("<Step Reducer />", () => {
     expect(
       StepReducer(undefined, {
         type: ActionTypes.SAVE_FORM_FIELD,
-        stepKey: "test-step",
         fields: {
-          formFieldKey: "test-field",
+          key: "test-field",
         },
       })
     ).toEqual({});
@@ -74,105 +73,7 @@ describe("<Step Reducer />", () => {
     expect(
       StepReducer(undefined, {
         type: ActionTypes.SAVE_FORM_FIELD,
-        fields: {
-          formFieldKey: "test-field",
-        },
-      })
-    ).toEqual({});
-
-    expect(
-      StepReducer(undefined, {
-        type: ActionTypes.SAVE_FORM_FIELD,
-        stepKey: "test-step",
-      })
-    ).toEqual({});
-  });
-
-  it("Resets data and error and sets loading to true if a request is started", () => {
-    expect(
-      StepReducer(undefined, {
-        type: ActionTypes.START_REQUEST,
-        stepKey: "foo-bar",
-      })
-    ).toEqual({
-      "foo-bar": {
-        data: null,
-        error: null,
-        isLoading: true,
-      },
-    });
-
-    expect(
-      StepReducer(undefined, {
-        type: ActionTypes.START_REQUEST,
-      })
-    ).toEqual({});
-
-    expect(
-      StepReducer(undefined, {
-        type: ActionTypes.FINISH_REQUEST,
-        stepKey: "foo-bar",
-        serverResponse: {
-          data: 123,
-          error: 123,
-        },
-      })
-    ).toEqual({
-      "foo-bar": {
-        data: 123,
-        error: 123,
-        isLoading: false,
-      },
-    });
-
-    expect(
-      StepReducer(undefined, {
-        type: ActionTypes.START_REQUEST,
-        stepKey: "foo-bar",
-      })
-    ).toEqual({
-      "foo-bar": {
-        data: null,
-        error: null,
-        isLoading: true,
-      },
-    });
-  });
-
-  it("Finishes a request, sets data/error and loading false", () => {
-    expect(
-      StepReducer(undefined, {
-        type: ActionTypes.FINISH_REQUEST,
-        stepKey: "foo-bar",
-        serverResponse: {
-          data: 123,
-          error: 123,
-        },
-      })
-    ).toEqual({
-      "foo-bar": {
-        data: 123,
-        error: 123,
-        isLoading: false,
-      },
-    });
-
-    expect(
-      StepReducer(undefined, {
-        type: ActionTypes.FINISH_REQUEST,
-        stepKey: "foo-bar",
-      })
-    ).toEqual({
-      "foo-bar": {
-        data: undefined,
-        error: undefined,
-        isLoading: false,
-      },
-    });
-
-    expect(
-      StepReducer(undefined, {
-        type: ActionTypes.FINISH_REQUEST,
+        id: "test-step",
       })
     ).toEqual({});
   });

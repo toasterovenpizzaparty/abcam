@@ -11,10 +11,18 @@
 }
 
 .imagepreview {
+  max-width: 200px;
+  min-height: 200px;
+  min-width: 200px;
+  border: 1px solid #ccc;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  display: flex;
 }
 
 .imagepreview__description {
+  margin: 1rem 0;
   font-style: italic;
   display: block;
   max-width: 200px;
@@ -29,7 +37,7 @@
   flex: 1 1;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: flex-start;
 }
 

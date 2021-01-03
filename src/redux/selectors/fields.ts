@@ -1,5 +1,5 @@
-import { useSelector } from "react-redux";
-import { RootState } from "../store";
+import { useSharedState } from "../../providers/shared-state";
+import { RootState } from "../../providers/shared-state";
 import { useSaveFieldAction } from "../actions/fields";
 
 /*
@@ -34,7 +34,10 @@ const useFieldSelector = (
   id: string,
   fieldKey: string,
   defaultValue: string = ""
-) => useSelector<RootState, string>(fieldSelector(id, fieldKey, defaultValue));
+) => {
+  const state = useSharedState();
+  return fieldSelector(id, fieldKey, defaultValue)(state);
+};
 
 /*
  * Provides a common interface to work with updating field values in the redux store.

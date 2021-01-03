@@ -1,25 +1,17 @@
-import React, { useEffect } from "react";
-import { Provider } from "react-redux";
+import React from "react";
 import Logo from "./components/Logo";
-import { AxiosProvider } from "./providers/axios";
-import store from "./redux/store";
-import { ActionTypes } from "./redux/reducers/step-reducer/step-reducer";
+import { SharedStateProvider } from "./providers/shared-state.tsx";
 import "./App.css";
 import Router from "./routes";
 
 function App() {
-  useEffect(() => {
-    store.dispatch({ type: ActionTypes.HYDRATE });
-  });
   return (
-    <Provider store={store}>
-      <AxiosProvider>
-        <main className='layout'>
-          <Logo />
-          <Router />
-        </main>
-      </AxiosProvider>
-    </Provider>
+    <SharedStateProvider>
+      <main className='layout'>
+        <Logo />
+        <Router />
+      </main>
+    </SharedStateProvider>
   );
 }
 

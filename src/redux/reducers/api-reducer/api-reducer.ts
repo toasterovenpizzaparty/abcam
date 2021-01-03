@@ -22,7 +22,7 @@ export enum ActionTypes {
     Any Action should have a stepkey as data is tied to the current step.
   */
 export type Action = {
-  type: ActionTypes;
+  type: string;
   data?: AxiosResponse | null;
   error?: AxiosError | null;
 };
@@ -35,7 +35,6 @@ const initialState: State = {
 
 export const APIReducer = (state = initialState, action: Action) => {
   let nextState = state;
-  console.log(action);
   switch (action.type) {
     // Clear any old request data and set isLoading to true to signal the API is working
     case ActionTypes.START_REQUEST:
