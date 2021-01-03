@@ -1,4 +1,4 @@
-import react, { createContext, useReducer, Reducer, useEffect } from "react";
+import React, { createContext, useReducer, Reducer, useEffect } from "react";
 import { AxiosResponse, AxiosError } from "axios";
 
 /* 
@@ -42,7 +42,7 @@ type StepProviderProps = {
 
 type StepContextType = {
   state: State;
-  dispatch: react.Dispatch<Action>;
+  dispatch: React.Dispatch<Action>;
 };
 
 export const StepContext = createContext<StepContextType | null>(null);

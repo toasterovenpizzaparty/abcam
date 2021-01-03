@@ -34,9 +34,9 @@
     "web-vitals": "^0.2.4"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
+    "start": "cra-preact start",
+    "build": "cra-preact build",
+    "test": "cra-preact test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -58,6 +58,7 @@
     ]
   },
   "devDependencies": {
-    "@wojtekmaj/enzyme-adapter-react-17": "^0.4.1"
+    "@wojtekmaj/enzyme-adapter-react-17": "^0.4.1",
+    "cra-preact": "^0.4.0"
   }
 }

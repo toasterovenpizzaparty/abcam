@@ -1,8 +1,15 @@
-@import url("https://fonts.googleapis.com/css2?family=Mulish&display=swap");
 @font-face {
   font-family: "ITC Lubalin Graph Std";
   src: url("./assets/fonts/LubalinGraphStd-Medium.woff2") format("woff2"),
     url("./assets/fonts/LubalinGraphStd-Medium.woff") format("woff");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Mulish";
+  src: url("./assets/fonts/Mulish-Regular.woff2") format("woff2"),
+    url("./assets/fonts/Mulish-Regular.woff") format("woff");
   font-weight: 500;
   font-style: normal;
   font-display: swap;
