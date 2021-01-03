@@ -1,10 +1,9 @@
-import React, { useCallback } from "react";
-// import { useHistory } from "react-router-dom";
-import { Rating, TextField } from "../../../components";
-import { FIELDS, STEPS } from "../../../config/form-types";
-// import { ServerResponse } from "../../redux/reducers/step-reducer";
-import { useStepSelector, createUseFieldState } from "../../../redux/selectors";
-// import { useCreateReviewAction } from "../../redux/actions";
+import React from "react";
+// import { Rating, TextField } from "../../../components";
+import Rating from "../../../components/Form/Rating";
+import TextField from "../../../components/Form/TextField";
+import { FIELDS } from "../../../config/form-types";
+import { createUseFieldState } from "../../../redux/selectors";
 import { StepPropTypes } from "../../../types/types";
 
 export const StepOne: React.FC<StepPropTypes> = ({
@@ -39,3 +38,5 @@ export const StepOne: React.FC<StepPropTypes> = ({
     </aside>
   );
 };
+
+export default StepOne;

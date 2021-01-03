@@ -1,5 +1,5 @@
 import React from "react";
-import { ImageFieldPreview, Title, Paragraph } from "../";
+import { Title, Paragraph } from "../";
 import styles from "./card.module.css";
 
 type CardPropTypes = {
@@ -27,7 +27,11 @@ export const Card: React.FC<Partial<CardPropTypes>> = ({
     <div className={styles.imagepreview}>
       {!!image && (
         <>
-          <img className={styles["imagepreview__image"]} src={image} />
+          <img
+            className={styles["imagepreview__image"]}
+            alt='A review poster'
+            src={image}
+          />
           <span className={styles["imagepreview__description"]}>
             {(imageDescription && limitWords(imageDescription)) || ""}
           </span>
@@ -45,3 +49,4 @@ export const Card: React.FC<Partial<CardPropTypes>> = ({
     </div>
   </section>
 );
+export default Card;

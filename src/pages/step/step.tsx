@@ -1,5 +1,5 @@
-import React, { useCallback, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React, { useCallback, Suspense } from "react";
+import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { useStepSelector, apiSelector } from "../../redux/selectors";
 import {
@@ -8,11 +8,18 @@ import {
 } from "../../redux/actions";
 import { useParams } from "react-router-dom";
 import { FIELDS } from "../../config/form-types";
-import { ProgressIndicator, Title, Button } from "../../components";
-import { StepOne, StepTwo, StepThree, StepFour } from "../steps";
+import ProgressIndicator from "../../components/ProgressIndicator";
+import Title from "../../components/Title";
+import Button from "../../components/Button";
 import { StepDataType } from "../../redux/reducers/step-reducer/step-reducer";
 import { StepPropTypes } from "../../types/types";
 import styles from "./step.module.css";
+
+const ErrorMessage = React.lazy(() => import("../../components/ErrorMessage"));
+const StepOne = React.lazy(() => import("../steps/step-one/step-one"));
+const StepTwo = React.lazy(() => import("../steps/step-two/step-two"));
+const StepThree = React.lazy(() => import("../steps/step-three/step-three"));
+const StepFour = React.lazy(() => import("../steps/step-four/step-four"));
 
 // Setup our route params type
 export type StepRouteParamsType = {
@@ -21,17 +28,19 @@ export type StepRouteParamsType = {
 };
 
 // Create a simple map to connect our step index to a component
-const StepComponentMap: Readonly<Record<number, React.FC<StepPropTypes>>> = {
-  [0]: StepOne,
-  [1]: StepTwo,
-  [2]: StepThree,
-  [3]: StepFour,
+const StepComponentMap: Readonly<
+  Record<number, () => React.FC<StepPropTypes>>
+> = {
+  0: () => StepOne,
+  1: () => StepTwo,
+  2: () => StepThree,
+  3: () => StepFour,
 };
 const StepDescriptionMap: Readonly<Record<number, string>> = {
-  [0]: "Title and rating",
-  [1]: "Description",
-  [2]: "Image and description",
-  [3]: "See your review",
+  0: "Title and rating",
+  1: "Description",
+  2: "Image and description",
+  3: "See your review",
 };
 const numOfSteps = Object.keys(StepComponentMap).length;
 
@@ -78,10 +87,11 @@ export const StepPage: React.FC = () => {
   const api = useSelector(apiSelector);
   const stepState = useStepSelector(params?.id || "step-one");
   const index = getStepIndex(params?.step);
-  const StepComponent = getStepComponent(index);
+  const StepComponent = getStepComponent(index)();
+
   const isButtonDisabled =
     api.isLoading ||
-    (StepComponent == StepOne &&
+    (!index &&
       [FIELDS.TITLE, FIELDS.RATING].filter(
         (field) => !getField(stepState, field)
       ).length > 0);
@@ -92,7 +102,7 @@ export const StepPage: React.FC = () => {
     async (index) => {
       const nextPageNumber = index + 1;
       try {
-        if (StepComponent === StepOne) {
+        if (!index) {
           const response = await createReview(
             getField(stepState, FIELDS.TITLE),
             getField(stepState, FIELDS.RATING)
@@ -114,7 +124,7 @@ export const StepPage: React.FC = () => {
         console.log(error);
       }
     },
-    [StepComponent, stepState]
+    [stepState, createReview, history, params?.id, updateReview]
   );
 
   const onPressNext = () =>
@@ -137,11 +147,19 @@ export const StepPage: React.FC = () => {
         className={styles.wrapper}
         data-test-id={`step-component-${index}`}
       >
-        <StepComponent
-          errorMessage={api?.error?.message || ""}
-          isError={!!api?.error}
-          id={params?.id || "step-one"}
-        />
+        <Suspense fallback={<div>Loading...</div>}>
+          <ErrorMessage
+            isVisible={!!api?.error}
+            messages={[
+              "Something went wrong while trying to save your review.",
+            ]}
+          />
+          <StepComponent
+            errorMessage={""}
+            isError={false}
+            id={params?.id || "step-one"}
+          />
+        </Suspense>
       </section>
       <nav className={styles.navigation}>
         <Button
@@ -160,3 +178,4 @@ export const StepPage: React.FC = () => {
     </>
   );
 };
+export default StepPage;

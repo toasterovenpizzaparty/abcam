@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { FIELDS } from "../../../config/form-types";
 import { createUseFieldState } from "../../../redux/selectors";
-import {
-  TextArea,
-  ImageField,
+import ErrorMessage from "../../../components/ErrorMessage";
+import TextArea from "../../../components/Form/TextArea";
+import ImageField, {
   IMAGEFIELD_ERROR_TYPES,
-  ErrorMessage,
-} from "../../../components";
+} from "../../../components/Form/ImageField";
 import { StepPropTypes } from "../../../types/types";
 import styles from "./step-three.module.css";
 
@@ -60,3 +59,4 @@ export const StepThree: React.FC<StepPropTypes> = ({
     </section>
   );
 };
+export default StepThree;

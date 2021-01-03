@@ -26,38 +26,43 @@ const createFinishRequestPayload = ({
 
 export const useCreateReviewAction = () => {
   const dispatch = useDispatch();
-  return useCallback(async (title: string, rating: string) => {
-    console.log(title, rating, "received");
-    dispatch(createStartRequestPayload());
-    try {
-      const response = await client().request({
-        url: "/reviews",
-        method: "POST",
-        data: {
-          title,
-          rating,
-        },
-      });
-      if (response?.data?.id) {
-        console.log("title and rating", title, rating);
-        dispatch(
-          createSaveFieldActionPayload(response?.data?.id, FIELDS.TITLE, title)
-        );
-        dispatch(
-          createSaveFieldActionPayload(
-            response?.data?.id,
-            FIELDS.RATING,
-            rating
-          )
-        );
+  return useCallback(
+    async (title: string, rating: string) => {
+      dispatch(createStartRequestPayload());
+      try {
+        const response = await client().request({
+          url: "/reviews",
+          method: "POST",
+          data: {
+            title,
+            rating,
+          },
+        });
+        if (response?.data?.id) {
+          dispatch(
+            createSaveFieldActionPayload(
+              response?.data?.id,
+              FIELDS.TITLE,
+              title
+            )
+          );
+          dispatch(
+            createSaveFieldActionPayload(
+              response?.data?.id,
+              FIELDS.RATING,
+              rating
+            )
+          );
+        }
+        dispatch(createFinishRequestPayload({ data: response?.data }));
+        return response;
+      } catch (error) {
+        dispatch(createFinishRequestPayload({ error }));
+        return false;
       }
-      dispatch(createFinishRequestPayload({ data: response?.data }));
-      return response;
-    } catch (error) {
-      dispatch(createFinishRequestPayload({ error }));
-      return false;
-    }
-  }, []);
+    },
+    [dispatch]
+  );
 };
 
 type UpdateReviewActionPropTypes = {
@@ -70,21 +75,24 @@ type UpdateReviewActionPropTypes = {
 
 export const useUpdateReviewAction = () => {
   const dispatch = useDispatch();
-  return useCallback(async (payload: UpdateReviewActionPropTypes) => {
-    dispatch(createStartRequestPayload());
-    try {
-      await client().request({
-        url: "/reviews",
-        method: "PUT",
-        data: {
-          ...payload,
-        },
-      });
-      dispatch(createFinishRequestPayload({}));
-      return true;
-    } catch (error) {
-      dispatch(createFinishRequestPayload({ error }));
-      return false;
-    }
-  }, []);
+  return useCallback(
+    async (payload: UpdateReviewActionPropTypes) => {
+      dispatch(createStartRequestPayload());
+      try {
+        await client().request({
+          url: "/reviews",
+          method: "PUT",
+          data: {
+            ...payload,
+          },
+        });
+        dispatch(createFinishRequestPayload({}));
+        return true;
+      } catch (error) {
+        dispatch(createFinishRequestPayload({ error }));
+        return false;
+      }
+    },
+    [dispatch]
+  );
 };

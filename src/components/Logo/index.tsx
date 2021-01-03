@@ -8,3 +8,4 @@ export const Logo = () => (
     src='/abcam_logo.png'
   />
 );
+export default Logo;

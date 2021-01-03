@@ -18,3 +18,4 @@ export const ErrorMessage = ({
       ))}
     </>
   ) : null;
+export default ErrorMessage;

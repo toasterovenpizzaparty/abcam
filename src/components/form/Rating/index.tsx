@@ -35,3 +35,4 @@ export const Rating = ({
     </div>
   );
 };
+export default Rating;

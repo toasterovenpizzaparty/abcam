@@ -1,4 +1,4 @@
-export * from "./Title/Title";
+export * from "./Title";
 export * from "./Form";
 export { ProgressIndicator } from "./ProgressIndicator";
 export * from "./Button";

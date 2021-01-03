@@ -1,6 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import { Button } from "../../Button";
 import styles from "./imagefield.module.css";
+
+export enum IMAGEFIELD_ERROR_TYPES {
+  FILESIZE = "filesize",
+  MIME = "mime",
+  UNKNOWN = "unknown",
+}
 
 type MimeIdentifierType = {
   mime: string;
@@ -71,12 +77,6 @@ const createBase64 = (file: File) =>
     reader.readAsDataURL(file);
   });
 
-export enum IMAGEFIELD_ERROR_TYPES {
-  FILESIZE = "filesize",
-  MIME = "mime",
-  UNKNOWN = "unknown",
-}
-
 type ImageFieldPropTypes = {
   label: string;
   value?: string;
@@ -97,7 +97,7 @@ export const ImageFieldPreview: React.FC<ImageFieldPreviewPropTypes> = ({
     {!!value ? (
       <img
         className={styles["imagepreview__image"]}
-        alt='Your uploaded image'
+        alt='Preview'
         src={value}
       />
     ) : null}
@@ -158,3 +158,4 @@ export const ImageField: React.FC<ImageFieldPropTypes> = ({
     </label>
   );
 };
+export default ImageField;

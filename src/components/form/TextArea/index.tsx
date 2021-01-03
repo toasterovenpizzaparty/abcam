@@ -25,3 +25,4 @@ export const TextArea: React.FC<Partial<TextAreaPropTypes>> = ({
     </label>
   );
 };
+export default TextArea;

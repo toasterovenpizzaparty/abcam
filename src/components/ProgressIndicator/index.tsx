@@ -29,7 +29,6 @@ export const ProgressIndicator: React.FC<ProgressIndicatorPropTypes> = ({
   numSteps = 4,
   stepDescriptions,
 }) => {
-  const percentage = getPercentage(currentStep, numSteps);
   return (
     <div className={styles.progressbar}>
       {Array.from({ length: numSteps }).map((data, index) => (
@@ -46,3 +45,4 @@ export const ProgressIndicator: React.FC<ProgressIndicatorPropTypes> = ({
     </div>
   );
 };
+export default ProgressIndicator;

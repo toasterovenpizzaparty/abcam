@@ -1,7 +1,7 @@
 import React from "react";
 import { FIELDS } from "../../../config/form-types";
 import { createUseFieldState } from "../../../redux/selectors";
-import { TextArea } from "../../../components";
+import TextArea from "../../../components/Form/TextArea";
 import { StepPropTypes } from "../../../types/types";
 
 export const StepTwo: React.FC<StepPropTypes> = ({
@@ -23,3 +23,4 @@ export const StepTwo: React.FC<StepPropTypes> = ({
     </section>
   );
 };
+export default StepTwo;

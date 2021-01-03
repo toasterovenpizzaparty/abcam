@@ -16,3 +16,4 @@ export const Title: React.FC<TitleProps> = ({
     supportedHeaderLevels.indexOf(headerLevel) > -1 ? headerLevel : "h1";
   return <Tag className={styles.title}>{children}</Tag>;
 };
+export default Title;

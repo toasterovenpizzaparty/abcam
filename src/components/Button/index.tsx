@@ -15,3 +15,4 @@ export const Button: React.FC<ButtonPropTypes> = ({
     {children}
   </button>
 );
+export default Button;

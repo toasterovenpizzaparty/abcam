@@ -22,3 +22,4 @@ export const TextField = ({
     </label>
   );
 };
+export default TextField;

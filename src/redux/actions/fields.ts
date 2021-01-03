@@ -12,7 +12,7 @@ export const useSaveFieldAction = (id: string, fieldKey: string) => {
       console.log(createSaveFieldActionPayload(id, fieldKey, fieldValue));
       dispatch(createSaveFieldActionPayload(id, fieldKey, fieldValue));
     },
-    [id, fieldKey]
+    [id, fieldKey, dispatch]
   );
 };
 

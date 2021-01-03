@@ -1,11 +1,9 @@
 import React from "react";
 import { FIELDS } from "../../../config/form-types";
-import { StepDataType } from "../../../redux/reducers/step-reducer/step-reducer";
 import { useStepSelector } from "../../../redux/selectors";
 import { Card } from "../../../components";
 import { StepPropTypes } from "../../../types/types";
 import { getFields } from "../../step/step";
-import styles from "./step-four.module.css";
 
 export const StepFour: React.FC<StepPropTypes> = ({
   id = "step-four",
@@ -19,3 +17,5 @@ export const StepFour: React.FC<StepPropTypes> = ({
     </aside>
   );
 };
+
+export default StepFour;
