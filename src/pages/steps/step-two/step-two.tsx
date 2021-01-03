@@ -14,13 +14,13 @@ export const StepTwo: React.FC<StepPropTypes> = ({
     fieldKey: FIELDS.DESCRIPTION,
   });
   return (
-    <section data-test-id='step-two'>
+    <aside>
       <TextArea
         label='Please provide a description (optional)'
         onTextChange={setDescription}
         value={description}
       />
-    </section>
+    </aside>
   );
 };
 export default StepTwo;

@@ -6,6 +6,7 @@
   flex-direction: row;
   flex-wrap: wrap;
   max-width: 600px;
+  width: 600px;
   justify-content: space-around;
   text-align: left;
 }

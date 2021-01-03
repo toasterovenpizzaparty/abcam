@@ -3,12 +3,12 @@ import axios from "axios";
 import { mount } from "enzyme";
 import "../../config/enzyme";
 import { MemoryRouter, Router, Route } from "react-router-dom";
+import { StepPage } from "./step";
 import {
-  StepPage,
   getStepComponent,
   getStepIndex,
   StepComponentMap,
-} from "./step";
+} from "../../config/steps";
 import { STEPS, FIELDS } from "../../config/form-types";
 import { SharedStateProvider } from "../../providers/shared-state";
 import { ActionTypes as ApiReducerActionTypes } from "../../redux/reducers/api-reducer/api-reducer";

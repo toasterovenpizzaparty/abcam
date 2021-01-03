@@ -33,7 +33,7 @@ export const StepThree: React.FC<StepPropTypes> = ({
   });
 
   return (
-    <section data-test-id='step-three'>
+    <aside>
       <ErrorMessage
         isVisible={!!imageError || isError}
         messages={[errorMessage, imageError]}
@@ -56,7 +56,7 @@ export const StepThree: React.FC<StepPropTypes> = ({
           value={imageDescription}
         />
       </div>
-    </section>
+    </aside>
   );
 };
 export default StepThree;

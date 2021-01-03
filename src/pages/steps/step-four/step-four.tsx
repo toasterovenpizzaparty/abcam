@@ -3,7 +3,7 @@ import { FIELDS } from "../../../config/form-types";
 import { useSharedState } from "../../../providers/shared-state";
 import { Card, Title } from "../../../components";
 import { StepPropTypes } from "../../../types/types";
-import { getFields } from "../../step/step";
+import { getFields } from "../../../config/steps";
 
 export const StepFour: React.FC<StepPropTypes> = ({
   id = "step-four",
@@ -13,7 +13,7 @@ export const StepFour: React.FC<StepPropTypes> = ({
   const state = useSharedState();
   const fields = state.steps[id] || {};
   return (
-    <aside data-test-id='step-four'>
+    <aside>
       <Title>Your review has been saved.</Title>
       <Card {...getFields(Object.values(FIELDS), fields)} />
     </aside>

@@ -7,6 +7,15 @@
   background-color: #fff;
   position: relative;
   box-sizing: border-box;
+  min-height: 300px;
+  display: flex;
+  flex: 1;
+}
+
+.wrapper > aside {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
 }
 
 .navigation {
