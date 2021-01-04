@@ -5,10 +5,15 @@
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  max-width: 600px;
-  width: 600px;
   justify-content: space-around;
   text-align: left;
+  min-width: 500px;
+}
+
+@media screen and (max-width: 600px) {
+  .card {
+    min-width: auto;
+  }
 }
 
 .imagepreview {
@@ -28,6 +33,7 @@
   display: block;
   max-width: 200px;
   text-align: center;
+  overflow-wrap: anywhere;
 }
 
 .imagepreview__image {
@@ -45,6 +51,10 @@
 
 .review > p {
   margin: 0;
+}
+.review > h1,
+.review > p {
+  overflow-wrap: anywhere;
 }
 
 .review__stars {

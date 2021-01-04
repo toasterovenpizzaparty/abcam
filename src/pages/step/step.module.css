@@ -16,6 +16,7 @@
   display: flex;
   flex: 1;
   flex-direction: column;
+  flex-wrap: wrap;
 }
 
 .navigation {
