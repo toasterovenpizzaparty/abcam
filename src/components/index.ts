@@ -1,5 +1,5 @@
 export * from "./Title";
-export * from "./Form";
+export * from "./Form/index";
 export { ProgressIndicator } from "./ProgressIndicator";
 export * from "./Button";
 export * from "./Logo";

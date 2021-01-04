@@ -31,7 +31,7 @@
     "start": "cra-preact start",
     "build": "cra-preact build",
     "test": "cra-preact test",
-    "test-coverage": "node ./scripts/test-with-coverage.js --coverage --verbose",
+    "test-coverage": "node ./scripts/test-with-coverage.js --coverage --verbose --watchAll=false",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -54,6 +54,7 @@
   },
   "devDependencies": {
     "@wojtekmaj/enzyme-adapter-react-17": "^0.4.1",
+    "case-sensitive-paths-webpack-plugin": "^2.3.0",
     "cra-preact": "^0.4.0",
     "enzyme-adapter-preact-pure": "^2.2.3"
   }
