@@ -27,6 +27,7 @@
   font-style: italic;
   display: block;
   max-width: 200px;
+  text-align: center;
 }
 
 .imagepreview__image {
