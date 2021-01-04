@@ -1,17 +1,11 @@
-import { useSharedState } from "../../providers/shared-state";
+import { useSharedState } from "../../hooks/shared-state";
 import { RootState } from "../../providers/shared-state";
 import { useSaveFieldAction } from "../actions/fields";
 
-/*
-* Retrieve a field value from a step
-* {
-  [step]: {
-    fields: {
-      [key]: value;
-    }
-  }
-}
-*/
+/**
+ *
+ * @description Retrieve a field value by field key and id
+ */
 const getField = (
   state: RootState,
   id: string,
@@ -20,15 +14,19 @@ const getField = (
 ) =>
   (state?.steps?.[id] && state?.steps?.[id].fields?.[fieldKey]) || defaultValue;
 
+/**
+ *
+ * @description Shorthand to select a field value by field key and id
+ */
 export const fieldSelector = (
   id: string,
   fieldKey: string,
   defaultValue = ""
 ) => (state: RootState) => getField(state, id, fieldKey, defaultValue);
 
-/*
- * Creates a selector to retrieve a field value from within a step
- * If no value was found, return the defaultValue
+/**
+ *
+ * @description Creates a hook to retrieve a field value by field key and id
  */
 const useFieldSelector = (
   id: string,
@@ -39,13 +37,6 @@ const useFieldSelector = (
   return fieldSelector(id, fieldKey, defaultValue)(state);
 };
 
-/*
- * Provides a common interface to work with updating field values in the redux store.
- * Returns a function that can be utilized like setState.
- * E.g. const useFieldState = getFieldState("step-one", "3");
- * The useFieldState provides the value and a setter to update the field.
- * E.g. const [title, setTitle] = useFieldState("title", "");
- */
 type FieldStatePropTypes = {
   fieldKey: string;
   id: string;
@@ -58,6 +49,10 @@ type CreateFieldStatePropTypes = {
   defaultValue?: string;
 };
 
+/**
+ *
+ * @description Create a hook that provides a common interface to read/write field values. E.g. [state, setState] = useFieldState({id,fieldKey})
+ */
 export const useFieldState = ({
   id,
   fieldKey,
@@ -68,6 +63,10 @@ export const useFieldState = ({
   return [fieldValue, setFormField];
 };
 
+/**
+ *
+ * @description Provides a H.O.C. to useFieldState without having to resupply id.
+ */
 export const createUseFieldState = (id: string) => {
   return (props: CreateFieldStatePropTypes) => useFieldState({ ...props, id });
 };

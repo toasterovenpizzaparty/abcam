@@ -1,5 +1,9 @@
 import React from "react";
 import styles from "./logo.module.css";
+/**
+ *
+ * @description Return a logo
+ */
 export const Logo = () => (
   <img
     className={styles.logo}

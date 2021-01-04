@@ -2,6 +2,10 @@ import React from "react";
 import { Button } from "../../Button";
 import styles from "./imagefield.module.css";
 
+/**
+ *
+ * @description A set of error types that can occur
+ */
 export enum IMAGEFIELD_ERROR_TYPES {
   FILESIZE = "filesize",
   MIME = "mime",
@@ -13,7 +17,10 @@ type MimeIdentifierType = {
   pattern: number[];
   mask: number[];
 };
-
+/**
+ *
+ * @description Parse the header of a file and match it with known mimetypes, if there is a match return the mimetype.
+ */
 const getMimeType = (file: File) =>
   new Promise((resolve, reject) => {
     const mimes = [
@@ -61,7 +68,10 @@ const getMimeType = (file: File) =>
     };
     reader.readAsArrayBuffer(blob);
   });
-
+/**
+ *
+ * @description Takes a File from a FileList for example and converts it to Base64
+ */
 const createBase64 = (file: File) =>
   new Promise<string>((resolve, reject) => {
     const reader = new FileReader();
@@ -89,6 +99,10 @@ type ImageFieldPreviewPropTypes = {
   value: string;
 };
 
+/**
+ *
+ * @description Returns a preview of the provided image
+ */
 export const ImageFieldPreview: React.FC<ImageFieldPreviewPropTypes> = ({
   value = "",
   children = null,
@@ -105,6 +119,10 @@ export const ImageFieldPreview: React.FC<ImageFieldPreviewPropTypes> = ({
   </div>
 );
 
+/**
+ *
+ * @description Returns an image field that checks for filesize, mimetypes and provides a preview.
+ */
 export const ImageField: React.FC<ImageFieldPropTypes> = ({
   label = "",
   value = "",

@@ -1,6 +1,10 @@
 import React from "react";
 import styles from "./rating.module.css";
 
+/**
+ *
+ * @description Returns a component that shows a set of stars to select a rating from.
+ */
 export const Rating = ({
   label = "",
   maxRating = 5,

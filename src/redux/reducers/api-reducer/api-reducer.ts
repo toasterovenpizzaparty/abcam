@@ -1,9 +1,5 @@
 import { AxiosError, AxiosResponse } from "axios";
 
-/*
-    A simple state that is flexible enough to have various different steps
-    Each step has a set of fields and possibly information regarding API Requests.
-  */
 export type State = {
   isLoading: boolean;
   data: AxiosResponse | null;
@@ -16,11 +12,6 @@ export enum ActionTypes {
   CLEAR = "api-clear",
 }
 
-/* 
-    When working with input we use fields to store any values
-    When working with server responses we use the serverResponse.
-    Any Action should have a stepkey as data is tied to the current step.
-  */
 export type Action = {
   type: string;
   data?: AxiosResponse | null;
@@ -33,6 +24,10 @@ const initialState: State = {
   error: null,
 };
 
+/**
+ *
+ * @description A reducer to handle API Request, holds data and error messages as well as proving a simple loading flag.
+ */
 export const APIReducer = (state = initialState, action: Action) => {
   let nextState = state;
   switch (action.type) {

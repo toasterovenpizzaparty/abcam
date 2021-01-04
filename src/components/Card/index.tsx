@@ -10,12 +10,24 @@ type CardPropTypes = {
   "image-description": string;
 };
 
+/**
+ *
+ * @description Parse a string to an integer (defaults to 0)
+ */
 const getNumber = (value: string) =>
   !isNaN(parseInt(value)) ? parseInt(value) : 0;
 
+/**
+ *
+ * @description Limits the words to x ammount adding an elipses
+ */
 const limitWords = (value: string, maxLength: number = 300) =>
   value.length > maxLength ? `${value.substr(0, maxLength)}...` : value;
 
+/** Creates a card that shows an image, title and rating
+ *
+ * @description Returns a card with the provided review information
+ */
 export const Card: React.FC<Partial<CardPropTypes>> = ({
   title,
   rating,

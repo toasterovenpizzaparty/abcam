@@ -5,7 +5,10 @@ type ErrorMessagePropTypes = {
   messages: string[];
   isVisible: boolean;
 };
-
+/**
+ *
+ * @description Shows a set of error messages
+ */
 export const ErrorMessage = ({
   messages = [],
   isVisible = false,

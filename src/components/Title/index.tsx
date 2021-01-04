@@ -8,6 +8,10 @@ type TitleProps = {
   headerLevel?: "h1" | "h2" | "h3" | "h4" | "h5";
 };
 
+/**
+ *
+ * @description Returns a title with a header-level
+ */
 export const Title: React.FC<TitleProps> = ({
   children,
   headerLevel = "h1",

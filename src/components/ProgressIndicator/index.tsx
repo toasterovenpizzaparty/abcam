@@ -6,7 +6,10 @@ type ProgressIndicatorPropTypes = {
   numSteps?: number;
   stepDescriptions: Record<number, string>;
 };
-
+/**
+ *
+ * @description Returns the float value of a string
+ */
 export const getFloat = (
   value: string,
   defaultValue: number = 0.0,
@@ -16,6 +19,10 @@ export const getFloat = (
     ? defaultValue
     : parseFloat(parseFloat(value).toFixed(toFixed));
 
+/**
+ *
+ * @description Gets the percentage from two value
+ */
 export const getPercentage = (
   current: string | number,
   total: string | number
@@ -24,6 +31,10 @@ export const getPercentage = (
   return isNaN(percentage) || !isFinite(percentage) ? 0.0 : percentage;
 };
 
+/**
+ *
+ * @description Return a progress indicator based on a number of steps and descriptions per step.
+ */
 export const ProgressIndicator: React.FC<ProgressIndicatorPropTypes> = ({
   currentStep = 1,
   numSteps = 4,

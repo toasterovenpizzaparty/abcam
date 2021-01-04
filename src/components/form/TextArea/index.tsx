@@ -7,6 +7,10 @@ type TextAreaPropTypes = {
   onTextChange: (text: string) => void;
 };
 
+/**
+ *
+ * @description Returns a textarea with a label
+ */
 export const TextArea: React.FC<Partial<TextAreaPropTypes>> = ({
   label = "",
   value = "",

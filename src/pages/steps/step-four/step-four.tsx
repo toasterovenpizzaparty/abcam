@@ -1,6 +1,6 @@
 import React from "react";
 import { FIELDS } from "../../../config/form-types";
-import { useSharedState } from "../../../providers/shared-state";
+import { useSharedState } from "../../../hooks/shared-state";
 import { Card, Title } from "../../../components";
 import { StepPropTypes } from "../../../types/types";
 import { getFields } from "../../../config/steps";

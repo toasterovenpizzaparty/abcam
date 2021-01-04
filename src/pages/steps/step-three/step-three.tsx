@@ -9,6 +9,10 @@ import ImageField, {
 import { StepPropTypes } from "../../../types/types";
 import styles from "./step-three.module.css";
 
+/**
+ *
+ * @description Map our error messages to possible error types.
+ */
 const ImageErrorMap: Record<string, string> = {
   [IMAGEFIELD_ERROR_TYPES.FILESIZE]:
     "The provided image is too big, please select a smaller image.",

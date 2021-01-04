@@ -2,7 +2,7 @@ import { useCallback } from "react";
 import { ActionTypes } from "../reducers/api-reducer/api-reducer";
 import { AxiosResponse, AxiosError } from "axios";
 import { client } from "../../providers/axios";
-import { useDispatch } from "../../providers/shared-state";
+import { useDispatch } from "../../hooks/shared-state";
 import { FIELDS } from "../../config/form-types";
 import { createSaveFieldActionPayload } from "./fields";
 
@@ -10,11 +10,18 @@ type CreateFinishRequestPropTypes = {
   data?: AxiosResponse | null;
   error?: AxiosError | null;
 };
-
+/**
+ *
+ * @description Create a payload to start an API Request
+ */
 const createStartRequestPayload = () => ({
   type: ActionTypes.START_REQUEST,
 });
 
+/**
+ *
+ * @description Create a payload to finish an API Request
+ */
 const createFinishRequestPayload = ({
   data = null,
   error = null,
@@ -24,6 +31,10 @@ const createFinishRequestPayload = ({
   error: error,
 });
 
+/**
+ *
+ * @description Provides a hook to send an API Request to create a review
+ */
 export const useCreateReviewAction = () => {
   const dispatch = useDispatch();
   return useCallback(
@@ -72,7 +83,10 @@ type UpdateReviewActionPropTypes = {
   image?: string;
   imageDescription?: string;
 };
-
+/**
+ *
+ * @description Provides a hook to send an API Request to update a review
+ */
 export const useUpdateReviewAction = () => {
   const dispatch = useDispatch();
   return useCallback(

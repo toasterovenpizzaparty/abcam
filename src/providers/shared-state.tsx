@@ -18,12 +18,20 @@ export type RootState = {
 
 type Action = StepReducerAction & ApiReducerAction;
 
+/**
+ *
+ * @description Set our initial state.
+ */
 const initialState = {
   steps: {},
   api: { isLoading: false, data: null, error: null },
 };
 
-const StepStoreContext = React.createContext<{
+/**
+ *
+ * @description Main context object
+ */
+export const SharedStateContext = React.createContext<{
   state: RootState;
   dispatch: React.Dispatch<Action>;
 }>({
@@ -31,29 +39,26 @@ const StepStoreContext = React.createContext<{
   dispatch: (value: Action) => {},
 });
 
-export const useSharedState = () => {
-  const ctx = React.useContext(StepStoreContext);
-  return ctx.state;
-};
-
-export const useDispatch = () => {
-  const ctx = React.useContext(StepStoreContext);
-  return ctx.dispatch;
-};
-
+/**
+ *
+ * @description Combines our two reducers.
+ * @todo Split these reducers into seperate contexts. Either update triggers an update for both.
+ */
 const reducer = (state: RootState, action: Action): RootState => {
-  state.steps = StepReducer(state.steps, action);
-  state.api = APIReducer(state.api, action);
+  state = { ...state, steps: StepReducer(state.steps, action) };
+  state = { ...state, api: APIReducer(state.api, action) };
 
-  return {
-    ...state,
-  };
+  return state;
 };
 
 type SharedStateProviderPropTypes = {
   CACHE_KEY?: string;
 };
 
+/**
+ *
+ * @description Initialize our reducer and hydrate on start.
+ */
 export const SharedStateProvider: React.FC<SharedStateProviderPropTypes> = ({
   children,
   CACHE_KEY = "STEP_STATE_PROVIDER",
@@ -66,11 +71,11 @@ export const SharedStateProvider: React.FC<SharedStateProviderPropTypes> = ({
   }, []);
 
   return (
-    <StepStoreContext.Provider
+    <SharedStateContext.Provider
       value={{ state, dispatch }}
       data-test-id='shared-state-provider'
     >
       {children}
-    </StepStoreContext.Provider>
+    </SharedStateContext.Provider>
   );
 };

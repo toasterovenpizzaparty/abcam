@@ -1,6 +1,6 @@
 import React, { useCallback, Suspense } from "react";
 import { useHistory } from "react-router-dom";
-import { useSharedState } from "../../providers/shared-state";
+import { useSharedState } from "../../hooks/shared-state";
 import { useStepSelector } from "../../redux/selectors/step";
 import {
   useCreateReviewAction,
@@ -47,6 +47,7 @@ export const StepPage: React.FC = () => {
   const isPreviousButtonVisible = index - 1 > -1;
   const isNextButtonVisible = index + 1 < numOfSteps;
 
+  // Navigate to a new page, saving our information.
   const navigateToPage = useCallback(
     async (nextPageIndex) => {
       try {

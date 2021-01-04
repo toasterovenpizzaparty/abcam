@@ -2,10 +2,6 @@ export type StepDataType = {
   fields?: Record<string, string>;
 };
 
-/*
-  A simple state that is flexible enough to have various different steps
-  Each step has a set of fields and possibly information regarding API Requests.
-*/
 export type State = Record<string, StepDataType>;
 
 export type FormFieldPayload = {
@@ -22,23 +18,10 @@ export type ActionWithTypes = {
   type: ActionTypes;
 };
 
-/* export type ServerResponse<T = any> = {
-  isLoading?: boolean;
-  data?: T;
-  error?: T;
-}; */
-
-/* 
-  When working with input we use fields to store any values
-  When working with server responses we use the serverResponse.
-  Any Action should have a stepkey as data is tied to the current step.
-*/
 export type Action = {
   type: string;
   id?: string;
   fields?: FormFieldPayload;
-  // serverResponse?: ServerResponse;
-  // isDataComplete?: boolean;
 };
 
 const initialState: State = {};
@@ -69,6 +52,10 @@ const hydrateState = () => {
   return null;
 };
 
+/**
+ *
+ * @description A reducer that stores data as [key]: values for a specific id. Utilizes localStorage to keep a persistent state.
+ */
 export const StepReducer = (state = initialState, action: Action) => {
   let nextState = state;
   switch (action.type) {

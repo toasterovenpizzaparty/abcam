@@ -1,6 +1,10 @@
 import React from "react";
 import styles from "./textfield.module.css";
 
+/**
+ *
+ * @description Returns a textfield input with a label
+ */
 export const TextField = ({
   label = "",
   value = "",

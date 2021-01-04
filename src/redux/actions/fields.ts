@@ -1,9 +1,10 @@
 import { useCallback } from "react";
 import { ActionTypes } from "../reducers/step-reducer/step-reducer";
-import { useDispatch } from "../../providers/shared-state";
+import { useDispatch } from "../../hooks/shared-state";
 
-/*
- * Returns a function to save a field value in the redux store.
+/**
+ *
+ * @description Provides a hook to save a field within our reducer
  */
 export const useSaveFieldAction = (id: string, fieldKey: string) => {
   const dispatch = useDispatch();
@@ -15,6 +16,10 @@ export const useSaveFieldAction = (id: string, fieldKey: string) => {
   );
 };
 
+/**
+ *
+ * @description Create a payload to save a field within a step
+ */
 export const createSaveFieldActionPayload = (
   id: string,
   fieldKey: string,
